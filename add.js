@@ -22,9 +22,18 @@ document.getElementById("addform").addEventListener("submit", function (e) {
     const price = getElementVal("price");
     const phone = getElementVal("phone");
     const address = getElementVal("address");
+    const currentDate = new Date();
+
+// Get the year, month, and day components
+const year = currentDate.getFullYear();
+const month = currentDate.getMonth() + 1; // Months are 0-based, so add 1
+const day = currentDate.getDate();
+
+// Convert the components to a formatted string
+const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
     // Upload the image and then save details
-    uploadImage(productname, weight, price, phone, address);
+    uploadImage(productname, weight, price, phone, address,formattedDate);
     document.getElementById("alart").style.display = "block";
     setTimeout(() => {
         document.getElementById("alart").style.display = "none";
@@ -35,7 +44,7 @@ document.getElementById("addform").addEventListener("submit", function (e) {
 });
 
 
-function uploadImage(productname, weight, price, phone, address) {
+function uploadImage(productname, weight, price, phone, address,d) {
     const ref = firebase.storage().ref();
     const file = document.querySelector("#image").files[0];
     const name = new Date() + '-' + file.name;
@@ -47,7 +56,7 @@ function uploadImage(productname, weight, price, phone, address) {
     task.then(snapshot => snapshot.ref.getDownloadURL())
         .then(url => {
             // Now that you have the URL, save details including the URL
-            savedetails(productname, weight, price, phone, address, url);
+            savedetails(productname, weight, price, phone, address, url,d);
         })
         .catch(error => {
             console.error("Error uploading image:", error);
@@ -55,7 +64,7 @@ function uploadImage(productname, weight, price, phone, address) {
 }
 
 // Upload data and image URL
-function savedetails(productname, weight, price, phone, address, imageUrl) {
+function savedetails(productname, weight, price, phone, address, imageUrl,date) {
     const newAddForm = productsDB.push();
     newAddForm.set({
         pname: productname,
@@ -63,7 +72,8 @@ function savedetails(productname, weight, price, phone, address, imageUrl) {
         price: price,
         phone: phone,
         address: address,
-        imageUrl: imageUrl // Include the image URL in the data
+        imageUrl: imageUrl,
+        date: date // Include the image URL in the data
     });
 }
 

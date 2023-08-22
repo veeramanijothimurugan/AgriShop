@@ -19,17 +19,50 @@ productsDB.once('value').then(snapshot => {
 
     // Convert the snapshot results to an array and reverse the order
     const productsArray = [];
+    const keyarray = [];
     snapshot.forEach(childSnapshot => {
         productsArray.push(childSnapshot.val());
+        keyarray.push(childSnapshot.key);
     });
     productsArray.reverse(); // Reverse the array order
+    keyarray.reverse();
 
     // Append the reversed array to the DOM
     productsArray.forEach(productDetails => {
         const card = createCardElement(productDetails);
+        const date = productDetails.date;
+        const expiry=differenceInDays(date);
+    if(expiry==7){
+        //delete function
+    }
+    else{
         cardsGrid.appendChild(card);
+    }
     });
 });
+
+function deleteProduct(productKey) {
+    productsDB.child(productKey).remove()
+        .then(() => {
+            console.log('Product deleted successfully');
+            // Optional: Remove the card from the UI after deletion
+            const card = document.getElementById(productKey);
+            if (card) {
+                card.remove();
+            }
+        })
+        .catch(error => {
+            console.error('Error deleting product:', error);
+        });
+}
+
+function differenceInDays(date1) {
+    const currentDate = new Date();
+    const d= new Date(date1);
+    const oneDay = 24 * 60 * 60 * 1000; // Number of milliseconds in a day
+    const diffMilliseconds = Math.abs(d - currentDate);
+    return Math.floor(diffMilliseconds / oneDay);
+}
 
 
 // Create card element with details and "Buy" button
@@ -57,6 +90,12 @@ function createCardElement(productDetails) {
     totalWeight.className = 'card-text';
     totalWeight.textContent = `Total weight: ${productDetails.totalWeight} kg`;
 
+    const date=productDetails.date;
+    const expiry=differenceInDays(date);    
+    const exp = document.createElement('p');
+    exp.className = 'card-text';
+    exp.textContent = `Expires in ${7-expiry} days`;
+    exp.classList.add('expires-text');
     // const contact = document.createElement('p');
     // contact.className = 'card-text';
     // contact.textContent = `Contact: ${productDetails.phone}`;
@@ -64,6 +103,7 @@ function createCardElement(productDetails) {
     // const address = document.createElement('p');
     // address.className = 'card-text';
     // address.textContent = `Address: ${productDetails.address}`;
+
 
     const buyButton = document.createElement('button');
     buyButton.className = 'buy-button';
@@ -80,6 +120,7 @@ function createCardElement(productDetails) {
    cardContent.appendChild(title);
             cardContent.appendChild(weightPerKg);
             cardContent.appendChild(totalWeight);
+            cardContent.appendChild(exp);
             //cardContent.appendChild(contact);
             //cardContent.appendChild(address);
             cardContent.appendChild(buyButton);
