@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Product Details</title>
+    <style>
+        /* Style for the product image */
+        .product-image {
+            width: 500px;
+            height: 250px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-right: 20px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Style for the product details box */
+        .product-box {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .buyer-info-box {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px;
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        /* Style for the "Confirm Order" button */
+        .confirm-button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .confirm-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2d2d2d;">
+        <a class="navbar-brand" href="home.html">
+            <img src="alogo.png" alt="AgriShop Logo" height="30" class="d-inline-block align-top" loading="lazy">
+            AgriShop
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item active5">
+                    <a class="nav-link" href="#">Products</a>
+                </li>
+            </ul>
+            <form class="form-inline ml-lg-3">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="product-box">
+        <div class="product-image">
+            <img id="productImage" src="" alt="Product Image">
+        </div>
+        <div class="product-details">
+            <h2 id="productName"></h2>
+            <p id="productWeight"></p>
+            <p id="productTotalWeight"></p>
+            <p id="productPhone"></p>
+            <p id="productAddress"></p>
+        </div>
+    </div>
+    <div class="buyer-info-box">
+        <h3>Buyer Information</h3>
+        <form id="buyerForm">
+            <div class="form-group">
+                <label for="buyerName">Name:</label>
+                <input type="text" class="form-control" id="buyerName" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerAddress">Address:</label>
+                <input type="text" class="form-control" id="buyerAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerPhone">Phone Number:</label>
+                <input type="tel" class="form-control" id="buyerPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="buyerWeight">Weight you need:</label>
+                <input type="number" class="form-control" id="buyerWeight" required>
+            </div>
+            <button id="confirmOrderButton" class="confirm-button">Confirm Order</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script>
+        // Get the query parameters from the URL
+        const queryParams = new URLSearchParams(window.location.search);
+
+        // Retrieve the product details from the query parameters
+        const productName = queryParams.get('pname');
+        const productWeight = queryParams.get('weightPerKg');
+        // const productTotalWeight = queryParams.get('totalWeight');
+        const productPhone = queryParams.get('phone');
+        const productAddress = queryParams.get('address');
+        const imageUrl = queryParams.get('imageUrl');
+
+        // Populate the product details in the HTML elements
+        document.getElementById('productName').textContent = productName;
+        document.getElementById('productWeight').textContent = `Weight per kg: ${productWeight} kg`;
+        // document.getElementById('productTotalWeight').textContent = `Total weight: ${productTotalWeight} kg`;
+        document.getElementById('productPhone').textContent = `Contact: ${productPhone}`;
+        document.getElementById('productAddress').textContent = `Address: ${productAddress}`;
+
+        // Set the product image URL as the source for the img element
+        const productImage = document.getElementById('productImage');
+        productImage.src = imageUrl;
+    </script>
+</body>
+
+</html>

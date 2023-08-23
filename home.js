@@ -84,11 +84,11 @@ function createCardElement(productDetails) {
 
     const weightPerKg = document.createElement('p');
     weightPerKg.className = 'card-text';
-    weightPerKg.textContent = `Weight per kg: ${productDetails.weight} kg`;
+    weightPerKg.textContent = `Weight per kg: ${productDetails.price} kg`;
 
-    const totalWeight = document.createElement('p');
-    totalWeight.className = 'card-text';
-    totalWeight.textContent = `Total weight: ${productDetails.totalWeight} kg`;
+    // const totalWeight = document.createElement('p');
+    // totalWeight.className = 'card-text';
+    // totalWeight.textContent = `Total weight: ${productDetails.totalWeight} kg`;
 
     const date=productDetails.date;
     const expiry=differenceInDays(date);    
@@ -112,14 +112,16 @@ function createCardElement(productDetails) {
 
     // Attach event listener to "Buy" button
     buyButton.addEventListener('click', () => {
-        // Handle buy action or navigate to purchase page
-        // You can use productDetails.productId or any other identifier to track the selected product
+        // Redirect to product details page (buy.html) and pass the product details as query parameters
+        const queryParams = `?pname=${encodeURIComponent(productDetails.pname)}&weightPerKg=${encodeURIComponent(productDetails.price)}&phone=${encodeURIComponent(productDetails.phone)}&address=${encodeURIComponent(productDetails.address)}&imageUrl=${encodeURIComponent(productDetails.imageUrl)}`;
+        window.location.href = `buy.html${queryParams}`;
     });
 
+    
     cardContent.appendChild(image); // Add the image to the card content
    cardContent.appendChild(title);
             cardContent.appendChild(weightPerKg);
-            cardContent.appendChild(totalWeight);
+            // cardContent.appendChild(totalWeight);
             cardContent.appendChild(exp);
             //cardContent.appendChild(contact);
             //cardContent.appendChild(address);
@@ -129,3 +131,45 @@ function createCardElement(productDetails) {
 
     return card;
 }
+
+// ... Your existing Firebase configuration and setup ...
+
+// Function to filter cards based on search query
+function filterCards(searchQuery) {
+    const cards = document.getElementsByClassName('card');
+    let noItemsFound = true;
+    
+    for (const card of cards) {
+        const title = card.querySelector('.card-title').textContent.toLowerCase();
+        if (title.includes(searchQuery.toLowerCase())) {
+            card.style.display = 'block'; // Show the card
+            noItemsFound = false;
+        } else {
+            card.style.display = 'none'; // Hide the card
+        }
+    }
+    
+    const noItemsMessage = document.getElementById('noItemsMessage');
+    if (noItemsFound) {
+        noItemsMessage.style.display = 'block';
+    } else {
+        noItemsMessage.style.display = 'none';
+    }
+}
+
+// Handle search button click
+document.getElementById('searchButton').addEventListener('click', () => {
+    const searchInput = document.getElementById('searchInput');
+    const searchQuery = searchInput.value.trim();
+    filterCards(searchQuery);
+});
+
+// Handle search input change (for live search)
+document.getElementById('searchInput').addEventListener('input', () => {
+    const searchInput = document.getElementById('searchInput');
+    const searchQuery = searchInput.value.trim();
+    filterCards(searchQuery);
+});
+
+// ... Your existing code to retrieve and display cards ...
+
