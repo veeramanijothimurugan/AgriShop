@@ -7,7 +7,7 @@
     <title>AgriShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        ::-webkit-file-upload-button {
+            ::-webkit-file-upload-button {
             background-color: #2d2d2d;
             color: white;
             padding: 5px 10px 2px;
@@ -17,18 +17,12 @@
             cursor: pointer;
             display: inline-block;
         }
-
-        .fixed-button {
-            position: relative;
-            background-color: #2d2d2d;
-            padding: 10px 20px;
-            border: none;
-            color: white;
-            cursor: pointer;
-            margin: 0 auto;
-            border-radius: 5px;
-            display: block;
+        ::-webkit-file-upload-button:hover {
+            background-color: #fff;
+            color: #2d2d2d;
+        border: 2px solid #2d2d2d;  
         }
+        
         .container-box {
             border: 1px solid #ccc;
             border-radius: 5px;
@@ -51,8 +45,30 @@
         }
 
         .container-box button:hover {
-            background-color: #0056b3;
+            margin-top: 10px;
+background-color: #fff;
+border-radius: 5px;
+            color: #2d2d2d;
+            cursor: pointer;
+            transition: background-color 0.2s;border: 2px solid #2d2d2d;    
         }
+        .fixed-button {
+            position: relative;
+            background-color: #2d2d2d;
+            padding: 10px 20px;
+            border: none;
+            color: white;
+            cursor: pointer;
+            margin: 0 auto;
+            border-radius: 5px;
+            display: block;
+        }
+        .fixed-button:hover{
+            background-color: #fff;
+            color: #2d2d2d;
+        border: 2px solid #2d2d2d;    
+        }
+        
     </style>
 </head>
 

@@ -84,7 +84,7 @@ function createCardElement(productDetails) {
 
     const weightPerKg = document.createElement('p');
     weightPerKg.className = 'card-text';
-    weightPerKg.textContent = `Weight per kg: ${productDetails.price} kg`;
+    weightPerKg.textContent = `Weight per kg: ${productDetails.price} ₹`;
 
     // const totalWeight = document.createElement('p');
     // totalWeight.className = 'card-text';
