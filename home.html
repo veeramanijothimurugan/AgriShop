@@ -101,8 +101,9 @@
         }
 
         .buy-button:hover {
-            background-color: #0056b3;
-        }
+            background-color: #fff;
+            color: #2d2d2d;
+        border: 2px solid #2d2d2d;        }
 
         .fixed-button {
             position: fixed;
@@ -118,13 +119,17 @@
             border-radius: 5px;
         }
 
+        .fixed-button:hover{
+            background-color: #fff;
+            color: #2d2d2d;
+        border: 2px solid #2d2d2d;    
+        }
         .expires-text {
             color: red;
             /* Adjust the color as desired */
             text-align: center;
 
         }
-
         .center-content {
             display: flex;
             align-items: center;
@@ -167,7 +172,6 @@
     <br>
     <!-- Cards Container -->
     <div id="cardsGrid" class="card-grid"></div>
-
     <div id="noItemsContainer" class="center-content">
         <div id="noItemsMessage" style="display: none;">No items found</div>
     </div>
