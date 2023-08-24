@@ -18,7 +18,7 @@ const productsDB = firebase.database().ref('products');
 document.getElementById("addform").addEventListener("submit", function (e) {
     e.preventDefault();
     const productname = getElementVal("productname");
-    // const weight = getElementVal("weight");
+    const weight = getElementVal("weight");
     const price = getElementVal("price");
     const phone = getElementVal("phone");
     const address = getElementVal("address");
@@ -33,7 +33,7 @@ const day = currentDate.getDate();
 const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0' : ''}${day}`;
 
     // Upload the image and then save details
-    uploadImage(productname, price, phone, address,formattedDate);
+    uploadImage(productname, price, phone, address,formattedDate,weight);
     document.getElementById("alart").style.display = "block";
     setTimeout(() => {
         document.getElementById("alart").style.display = "none";
@@ -44,7 +44,7 @@ const formattedDate = `${year}-${month < 10 ? '0' : ''}${month}-${day < 10 ? '0'
 });
 
 
-function uploadImage(productname, price, phone, address,d) {
+function uploadImage(productname, price, phone, address,d,weight) {
     const ref = firebase.storage().ref();
     const file = document.querySelector("#image").files[0];
     const name = new Date() + '-' + file.name;
@@ -56,7 +56,7 @@ function uploadImage(productname, price, phone, address,d) {
     task.then(snapshot => snapshot.ref.getDownloadURL())
         .then(url => {
             // Now that you have the URL, save details including the URL
-            savedetails(productname, price, phone, address, url,d);
+            savedetails(productname, price, phone, address, url,d,weight);
         })
         .catch(error => {
             console.error("Error uploading image:", error);
@@ -64,13 +64,14 @@ function uploadImage(productname, price, phone, address,d) {
 }
 
 // Upload data and image URL
-function savedetails(productname, price, phone, address, imageUrl,date) {
+function savedetails(productname, price, phone, address, imageUrl,date,weight) {
     const newAddForm = productsDB.push();
     newAddForm.set({
         pname: productname,
         price: price,
         phone: phone,
         address: address,
+        weight: weight,
         imageUrl: imageUrl,
         date: date // Include the image URL in the data
     });

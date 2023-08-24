@@ -41,21 +41,6 @@ productsDB.once('value').then(snapshot => {
     });
 });
 
-function deleteProduct(productKey) {
-    productsDB.child(productKey).remove()
-        .then(() => {
-            console.log('Product deleted successfully');
-            // Optional: Remove the card from the UI after deletion
-            const card = document.getElementById(productKey);
-            if (card) {
-                card.remove();
-            }
-        })
-        .catch(error => {
-            console.error('Error deleting product:', error);
-        });
-}
-
 function differenceInDays(date1) {
     const currentDate = new Date();
     const d= new Date(date1);
@@ -86,9 +71,10 @@ function createCardElement(productDetails) {
     weightPerKg.className = 'card-text';
     weightPerKg.textContent = `Weight per kg: ${productDetails.price} ₹`;
 
-    // const totalWeight = document.createElement('p');
-    // totalWeight.className = 'card-text';
-    // totalWeight.textContent = `Total weight: ${productDetails.totalWeight} kg`;
+    const availableWeight = document.createElement('p');
+    availableWeight.className = 'card-text';
+    availableWeight.textContent = `Available weight: ${productDetails.weight} kg`;
+
 
     const date=productDetails.date;
     const expiry=differenceInDays(date);    
@@ -113,15 +99,15 @@ function createCardElement(productDetails) {
     // Attach event listener to "Buy" button
     buyButton.addEventListener('click', () => {
         // Redirect to product details page (buy.html) and pass the product details as query parameters
-        const queryParams = `?pname=${encodeURIComponent(productDetails.pname)}&weightPerKg=${encodeURIComponent(productDetails.price)}&phone=${encodeURIComponent(productDetails.phone)}&address=${encodeURIComponent(productDetails.address)}&imageUrl=${encodeURIComponent(productDetails.imageUrl)}`;
+        const queryParams = `?pname=${encodeURIComponent(productDetails.pname)}&availableWeight=${encodeURIComponent(productDetails.weight)}&weightPerKg=${encodeURIComponent(productDetails.price)}&phone=${encodeURIComponent(productDetails.phone)}&address=${encodeURIComponent(productDetails.address)}&imageUrl=${encodeURIComponent(productDetails.imageUrl)}`;
         window.location.href = `buy.html${queryParams}`;
     });
 
     
     cardContent.appendChild(image); // Add the image to the card content
-   cardContent.appendChild(title);
+    cardContent.appendChild(title);
             cardContent.appendChild(weightPerKg);
-            // cardContent.appendChild(totalWeight);
+            cardContent.appendChild(availableWeight);
             cardContent.appendChild(exp);
             //cardContent.appendChild(contact);
             //cardContent.appendChild(address);

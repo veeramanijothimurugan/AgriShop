@@ -63,7 +63,13 @@
         .confirm-button:hover {
             background-color: #fff;
             color: #2d2d2d;
-        border: 2px solid #2d2d2d; 
+            border: 2px solid #2d2d2d;
+        }
+
+        #buyerAmount {
+            font-size: 18px;
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
@@ -124,6 +130,12 @@
                 <label for="buyerWeight">Weight you need:</label>
                 <input type="number" class="form-control" id="buyerWeight" required>
             </div>
+            <div class="form-group">
+                <label id="buyerAmount"></label>
+            </div>
+            <div class="form-group">
+                <label id="remainingWeight"></label>
+            </div>
             <div class="d-flex justify-content-end">
                 <button id="confirmOrderButton" class="confirm-button">Confirm Order</button>
             </div>
@@ -137,28 +149,53 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <!-- Include the Realtime Database SDK -->
     <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDthIP57USRjfD8Btu14YDjbZ_-Sps5uoE",
+            authDomain: "agrishop-8320b.firebaseapp.com",
+            databaseURL: "https://agrishop-8320b-default-rtdb.firebaseio.com",
+            projectId: "agrishop-8320b",
+            storageBucket: "agrishop-8320b.appspot.com",
+            messagingSenderId: "284533778289",
+            appId: "1:284533778289:web:13e6ff9b291bfafe2a78d0",
+            measurementId: "G-HTTSS4PGNX"
+        };
+        firebase.initializeApp(firebaseConfig);
         // Get the query parameters from the URL
         const queryParams = new URLSearchParams(window.location.search);
 
         // Retrieve the product details from the query parameters
         const productName = queryParams.get('pname');
         const productWeight = queryParams.get('weightPerKg');
-        // const productTotalWeight = queryParams.get('totalWeight');
+        const productTotalWeight = queryParams.get('availableWeight');
         const productPhone = queryParams.get('phone');
         const productAddress = queryParams.get('address');
         const imageUrl = queryParams.get('imageUrl');
 
         // Populate the product details in the HTML elements
+
         document.getElementById('productName').textContent = productName;
-        document.getElementById('productWeight').textContent = `Weight per kg: ${productWeight} ₹`;
-        // document.getElementById('productTotalWeight').textContent = `Total weight: ${productTotalWeight} kg`;
+        document.getElementById('productWeight').textContent = `Price per kg: ${productWeight} ₹`;
+        document.getElementById('productTotalWeight').textContent = `Available weight: ${productTotalWeight} kg`;
         document.getElementById('productPhone').textContent = `Contact: ${productPhone}`;
         document.getElementById('productAddress').textContent = `Address: ${productAddress}`;
+        const buyerWeightInput = document.getElementById('buyerWeight');
+
+        buyerWeightInput.addEventListener('input', function () {
+
+            const amount = productWeight * buyerWeightInput.value;
+            document.getElementById('remainingWeight').textContent = `remaining weight: ${productTotalWeight - buyerWeightInput.value} kg`;
+            document.getElementById('buyerAmount').textContent = `Amount: ${amount} ₹`;
+        });
 
         // Set the product image URL as the source for the img element
         const productImage = document.getElementById('productImage');
         productImage.src = imageUrl;
+    </script>
+    <script>
+
     </script>
 </body>
 
