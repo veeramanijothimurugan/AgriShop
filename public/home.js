@@ -32,10 +32,7 @@ productsDB.once('value').then(snapshot => {
         const card = createCardElement(productDetails);
         const date = productDetails.date;
         const expiry=differenceInDays(date);
-    if(expiry==7){
-        //delete function
-    }
-    else{
+    if(7-expiry>0){
         cardsGrid.appendChild(card);
     }
     });

@@ -1,0 +1,95 @@
+body {
+    font-family: Arial, sans-serif;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+img {
+    display: block;
+    margin-top: 10px;
+}
+
+.container{
+    border: 1px;
+}
+
+button{
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+/* Style to center the button at the bottom */
+.center-bottom {
+    position: fixed;
+    left: 50%;
+    bottom: 20px;
+    transform: translateX(-50%);
+}
+
+/* Basic styling for the card grid */
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Style for individual cards */
+.card {
+border: 1px solid #ccc;
+border-radius: 5px;
+padding: 10px;
+background-color: #fff;
+box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+transition: transform 0.2s;
+height: 100%;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+/* Style for card content */
+.card-content {
+flex-grow: 1;
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+}
+
+/* Style for card image */
+.card-image {
+max-width: 500px;
+max-height: 300px;
+object-fit: cover;
+}
+
+/* Styling for card title */
+.card-title {
+font-size: 18px;
+font-weight: bold;
+margin: 0;
+}
+
+/* Styling for card text */
+.card-text {
+margin: 0;
+}
+
+/* Styling for "Buy" button */
+.buy-button {
+margin-top: 10px;
+background-color: #007bff;
+color: #fff;
+border: none;
+border-radius: 5px;
+padding: 5px 10px;
+cursor: pointer;
+transition: background-color 0.2s;
+}
+
+.buy-button:hover {
+background-color: #0056b3;
+}

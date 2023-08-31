@@ -1,0 +1,4 @@
+const accountSid = 'AC44e0f800c0d762ed37457e504de2fc0b';
+            const authToken = 'd3731453c3210ca9dce8dfe3d58c6e44';
+            const twilioPhoneNumber = '+18146663257';
+            const recipientPhoneNumber = '+918072640512';
