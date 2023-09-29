@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AgriShop</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Koulen">
     <style>
-            ::-webkit-file-upload-button {
-            background-color: #2d2d2d;
+        body {
+            background-color: #8EDC96;
+            font-family: "koulen";
+            font-size: 18px;
+        }
+
+        ::-webkit-file-upload-button {
+            background-color: #FF7474;
             color: white;
             padding: 5px 10px 2px;
             border: none;
@@ -17,19 +24,29 @@
             cursor: pointer;
             display: inline-block;
         }
+
         ::-webkit-file-upload-button:hover {
             background-color: #fff;
             color: #2d2d2d;
-        border: 2px solid #2d2d2d;  
+            border: 2px solid #2d2d2d;
         }
-        
+
         .container-box {
-            border: 1px solid #ccc;
+            background-color: white;
+            border: 0px solid #ccc;
             border-radius: 5px;
             padding: 20px;
-            margin: 20px auto;
+            margin: 20px 0;
+            /* Remove margin:auto, and set margin on the top and bottom */
             box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
             max-width: 500px;
+
+            /* Center vertically */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 50px;
+            /* Adjust the left margin as needed */
         }
 
         /* Style for the "Post" button within the box */
@@ -46,38 +63,75 @@
 
         .container-box button:hover {
             margin-top: 10px;
-background-color: #fff;
-border-radius: 5px;
+            background-color: #fff;
+            border-radius: 5px;
             color: #2d2d2d;
             cursor: pointer;
-            transition: background-color 0.2s;border: 2px solid #2d2d2d;    
+            transition: background-color 0.2s;
+            border: 2px solid #2d2d2d;
         }
+
+        .container-box-right {
+
+            border: 0px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            /* Remove margin:auto, and set margin on the top and bottom */
+            box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 1050px;
+            /* Adjust the max-width to your desired size */
+            width: 100%;
+            /* Set width to 100% if you want it to take up the available width */
+
+            /* Center vertically */
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 50px;
+            /* Adjust the right margin as needed */
+        }
+
+
+
         .fixed-button {
-            position: relative;
+            position: fixed;
+            bottom: 0;
+            /* This keeps it at the bottom of the viewport */
+            left: 50%;
+            transform: translateX(-50%);
             background-color: #2d2d2d;
             padding: 10px 20px;
             border: none;
             color: white;
             cursor: pointer;
-            margin: 0 auto;
-            border-radius: 5px;
-            display: block;
+            border-radius: 45px;
+            margin-bottom: 20px;
         }
-        .fixed-button:hover{
+
+        .details{
+            margin-top: 20px;
+            border-radius: 50px;
+        }
+
+        .details::placeholder{
+            padding: 10px;
+        }
+
+        .fixed-button:hover {
             background-color: #fff;
             color: #2d2d2d;
-        border: 2px solid #2d2d2d;    
+            border: 2px solid #2d2d2d;
         }
-        
     </style>
 </head>
 
 <body>
     <!-- Navbar with logo, navigation options, and search bar -->
     <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #2d2d2d;">
-        <a class="navbar-brand" href="index.html">
-            <img src="alogo.png" alt="AgriShop Logo" height="30" class="d-inline-block align-top" loading="lazy">
-            AgriShop
+        <a class="navbar-brand" href="index.html" style="font-size: 30px;">
+            <img src="logo.png" alt="AgriShop Logo" height="40" class="d-inline-block align-top" loading="lazy">
+             AgriShop
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -98,37 +152,32 @@ border-radius: 5px;
             </form>
         </div>
     </nav>
-    <form action="" id="addform" class="container mt-5 container-box">
-        <h1 style="text-align: center;">ADD PRODUCT</h1>
-
-        <div class="mb-3">
+    <form action="" id="addform" class="container mt-5">
+        <div class="mb-3 container-box">
             <label for="image" class="form-label">Product Image:</label><br>
             <img id="preview" src="#" alt="Product Image Preview" style="max-width: 200px;" class="mt-2">
             <br><br>
             <input type="file" class="form-control custom-button" id="image" accept="image/*">
         </div>
-        <div class="mb-3">
-            <label for="name" class="form-label">Name:</label>
-            <input type="text" class="form-control" id="productname">
-        </div>
-        <div class="mb-3">
-            <label for="weight" class="form-label">Weight:</label>
-            <input type="text" class="form-control" id="weight">
-        </div>
-        <div class="mb-3">
-            <label for="price" class="form-label">Price/kg:</label>
-            <input type="number" class="form-control" id="price">
-        </div>
-        <div class="mb-3">
-            <label for="phone" class="form-label">Phone:</label>
-            <input type="text" class="form-control" id="phone">
-        </div>
-        <div class="mb-3">
-            <label for="address" class="form-label">Address:</label>
-            <input type="text" class="form-control" id="address">
+        <div class="container-box-right">
+            <div class="mb-3 ">
+                <input type="text" placeholder="Name" class="form-control details" id="productname">
+            </div>
+            <div class="mb-3">
+                <input type="text" placeholder="Weight" class="form-control details" id="weight">
+            </div>
+            <div class="mb-3">
+                <input type="number" placeholder="Price per kg" class="form-control details" id="price">
+            </div>
+            <div class="mb-3">
+                <input type="text" placeholder="Phone" class="form-control details" id="phone">
+            </div>
+            <div class="mb-3">
+                <textarea type="text" placeholder="Address" class="form-control" id="address" style="border-radius: 10px; margin-top: 20px;"></textarea>
+            </div>
         </div>
         <div id="alart"
-            style="color: white; font-weight: 18pxs; margin-top: 20px; display: none; text-align: center; background-color: #0da00d; border-radius: 5px; padding: 10px 20px;">
+            style="color: black; font-weight: 18pxs; margin-top: 20px; display: none; text-align: center; background-color: #FEFFC5; border-radius: 5px; padding: 10px 20px;">
             Posted successfully</div>
         <div>
             <button class="fixed-button" onclick="uploadImage()" type="submit" class="btn btn-primary">Post</button>

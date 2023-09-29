@@ -1,7 +1,7 @@
 const firebaseConfig = {
     apiKey: "AIzaSyDthIP57USRjfD8Btu14YDjbZ_-Sps5uoE",
     authDomain: "agrishop-8320b.firebaseapp.com",
-    databaseURL: "https://agrishop-8320b-default-rtdb.firebaseio.com",
+    databaseURL: "https://agrishop-8320b-default-rtdb.firebaseio.com/",
     projectId: "agrishop-8320b",
     storageBucket: "agrishop-8320b.appspot.com",
     messagingSenderId: "284533778289",
